@@ -18,18 +18,9 @@ function wsConnect(url) {
 function onWsOpen() {
     console.log('ws open');
 
-
+    // Ping period in milliseconds
     var pingPeriod = 60000;
     var pingInterval = setInterval(function() { sendPing() }, pingPeriod);
-
-
-/*    var req = {
-        action: 'join',
-        group: 'everyone'
-    };
-
-    ws.send(req);*/
-
 }
 
 function onWsClose() {
@@ -82,12 +73,18 @@ function sendChatMessage(message) {
     ws.send(JSON.stringify(req));
 }
 
+/**
+ * Send Ping to server to keep connection alive
+ */
 function sendPing() {
     ws.send(JSON.stringify({
         action: 'ping'
     }));
 }
 
+/**
+ * Bind action to submit event of join form
+ */
 function bindJoinFormSubmit() {
     $('.chat__join-form').submit(function(e) {
         e.preventDefault();
@@ -104,6 +101,9 @@ function bindJoinFormSubmit() {
     });
 }
 
+/**
+ * Bind action to submit event of chat form
+ */
 function bindChatFormSubmit() {
     $('.chat__form').submit(function(e) {
 

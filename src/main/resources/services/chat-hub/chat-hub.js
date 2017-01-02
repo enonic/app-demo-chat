@@ -7,9 +7,14 @@ var libs = {
 
 var users = {};
 
-exports.webSocketEvent = handleEvent;
+exports.webSocketEvent = handleWsEvent;
 exports.get = handleGet;
 
+/**
+ * Only allow websocket requests, otherwise return 404
+ * @param req
+ * @returns {*}
+ */
 function handleGet(req) {
 
     if (!req.webSocket) {
@@ -25,15 +30,17 @@ function handleGet(req) {
     };
 }
 
-function handleEvent(event) {
-
+/**
+ * Handle WebSockets event
+ * @param event
+ */
+function handleWsEvent(event) {
     if (event.type == 'open') {
-        sendToClient(getId(event), {action: 'Connected'});
-        libs.websocket.addToGroup('chat', getId(event));
+        connect(event);
     }
 
     if (event.type == 'message') {
-        handleMessage(event);
+        handleWsMessage(event);
     }
 
     if (event.type == 'close') {
@@ -41,41 +48,12 @@ function handleEvent(event) {
     }
 }
 
-function join(event, nick) {
-    var id = getId(event);
-    users[id] = {
-        nick: nick
-    };
-    sendToChat({
-        action: 'joined',
-        nick: nick
-    });
+function connect(event) {
+    sendToClient(getSessionId(event), {action: 'Connected'});
+    libs.websocket.addToGroup('chat', getSessionId(event));
 }
 
-/**
- * Get user by session id
- * @param sessionId
- * @returns {*}
- */
-function getUser(sessionId) {
-    return users[sessionId];
-}
-
-
-function leave(event) {
-    var id = getId(event);
-    libs.websocket.removeFromGroup('chat', id);
-    sendToChat({
-        action: 'left',
-        nick: getUser(id).nick
-    });
-}
-
-function getId(event) {
-    return event.session.id;
-}
-
-function handleMessage(event) {
+function handleWsMessage(event) {
     var message = JSON.parse(event.message);
 
     if (message.action == 'join') {
@@ -110,6 +88,45 @@ function handleMessage(event) {
     //return forwardEvent(translatedMessage);
 }
 
+function leave(event) {
+    var sessionId = getSessionId(event);
+    libs.websocket.removeFromGroup('chat', sessionId);
+    sendToChat({
+        action: 'left',
+        nick: getUser(sessionId).nick
+    });
+    delete users[sessionId];
+}
+
+function join(event, nick) {
+    var sessionId = getSessionId(event);
+    users[sessionId] = {
+        nick: nick
+    };
+    sendToChat({
+        action: 'joined',
+        nick: nick
+    });
+}
+
+/**
+ * Get user by session id
+ * @param sessionId
+ * @returns {*}
+ */
+function getUser(sessionId) {
+    return users[sessionId];
+}
+
+
+
+
+function getSessionId(event) {
+    return event.session.id;
+}
+
+
+
 
 /*function forwardEvent(message) {
     libs.websocket.sendToGroup('chat', JSON.stringify(message));
@@ -123,7 +140,7 @@ function handleChatMessage(event, message) {
 
 
     var translatedMessage = libs.morse.translate(message);
-    var sessionId = getId(event);
+    var sessionId = getSessionId(event);
 
     var req = {
         action: 'chatMessage',
@@ -150,7 +167,6 @@ function sendToChat(req) {
  * @param message
  */
 function sendToClient(sessionId, message) {
-    var msg = JSON.stringify(message);
-    libs.websocket.send(sessionId, msg);
+    libs.websocket.send(sessionId, JSON.stringify(message));
 }
 

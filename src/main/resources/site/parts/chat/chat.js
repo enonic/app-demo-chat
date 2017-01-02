@@ -11,14 +11,18 @@ function handleGet(req) {
 
     function createModel(req) {
         var model = {};
-
-        var wsUrl = libs.portal.serviceUrl({service: 'chat-hub', type: 'absolute'});
-
-        wsUrl = 'ws' + wsUrl.substring(wsUrl.indexOf(':'));
-
-        model.wsUrl = wsUrl;
-
+        model.wsUrl = getWsUrl();
         return model;
+    }
+
+    /**
+     * Get URL to WebSockets service
+     * @returns {String}
+     */
+    function getWsUrl() {
+        var url = libs.portal.serviceUrl({service: 'chat-hub', type: 'absolute'});
+        url = 'ws' + url.substring(url.indexOf(':'));
+        return url;
     }
 
     return {

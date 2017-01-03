@@ -14,7 +14,9 @@ function wsConnect(url) {
     ws.onmessage = onWsMessage;
 }
 
-
+/**
+ * On WebSockets open
+ */
 function onWsOpen() {
     console.log('ws open');
 
@@ -27,6 +29,10 @@ function onWsClose() {
     console.log('ws close');
 }
 
+/**
+ * On WebSockets message
+ * @param event
+ */
 function onWsMessage(event) {
 
     console.log(event);
@@ -38,11 +44,9 @@ function onWsMessage(event) {
         $('.chat__list').append('<li class="chat__item">' + data.nick + ': ' + data.message + '</li>');
     }
     else if (data.action == 'joined') {
-        //console.log(data.nick + ' joined');
         $('.chat__list').append('<li class="chat__item--joined">' + data.nick + ' joined the chat ' + '</li>');
     }
     else if (data.action == 'left') {
-        //console.log(data.nick + ' joined');
         $('.chat__list').append('<li class="chat__item--left">' + data.nick + ' left the chat ' + '</li>');
     }
     else if (data.action == 'ping') {
@@ -50,6 +54,10 @@ function onWsMessage(event) {
     }
 }
 
+/**
+ * Join chat room
+ * @param nick
+ */
 function joinChat(nick) {
     var req = {
         action: 'join',
@@ -59,16 +67,15 @@ function joinChat(nick) {
     ws.send(JSON.stringify(req));
 }
 
+/**
+ * Send chat message
+ * @param message
+ */
 function sendChatMessage(message) {
-    /*var req = {
-        message: message
-    };*/
-
     var req = {
         action: 'chatMessage',
         message: message
     };
-
 
     ws.send(JSON.stringify(req));
 }

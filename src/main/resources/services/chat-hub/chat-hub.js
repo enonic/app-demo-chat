@@ -48,8 +48,13 @@ function handleWsEvent(event) {
     }
 }
 
+/**
+ * On user connect
+ * Adds user to chat group
+ * @param event
+ */
 function connect(event) {
-    sendToClient(getSessionId(event), {action: 'Connected'});
+    //sendToClient(getSessionId(event), {action: 'Connected'});
     libs.websocket.addToGroup('chat', getSessionId(event));
 }
 
@@ -119,8 +124,11 @@ function getUser(sessionId) {
 }
 
 
-
-
+/**
+ * Get session id for a websockets event
+ * @param event
+ * @returns {string}
+ */
 function getSessionId(event) {
     return event.session.id;
 }

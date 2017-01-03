@@ -76,23 +76,12 @@ function handleWsMessage(event) {
         libs.util.log(event);
         return;
     }
-
-    //libs.util.log(message);
-
-
-    //var translatedMessage = libs.morse.translate(message);
-
-    //libs.util.log(translatedMessage);
-
-
-    //message = JSON.parse(translatedMessage);
-
-
-
-
-    //return forwardEvent(translatedMessage);
 }
 
+/**
+ * User leaves chat room
+ * @param event
+ */
 function leave(event) {
     var sessionId = getSessionId(event);
     libs.websocket.removeFromGroup('chat', sessionId);
@@ -103,6 +92,11 @@ function leave(event) {
     delete users[sessionId];
 }
 
+/**
+ * User joins chat room (with nick)
+ * @param event
+ * @param nick
+ */
 function join(event, nick) {
     var sessionId = getSessionId(event);
     users[sessionId] = {
@@ -133,20 +127,13 @@ function getSessionId(event) {
     return event.session.id;
 }
 
-
-
-
-/*function forwardEvent(message) {
-    libs.websocket.sendToGroup('chat', JSON.stringify(message));
-}*/
-
-
+/**
+ * Handles a chat message from a client
+ * Translates message into morse code, then sends this back to all users
+ * @param event
+ * @param message
+ */
 function handleChatMessage(event, message) {
-
-    libs.util.log(event);
-    libs.util.log(message);
-
-
     var translatedMessage = libs.morse.translate(message);
     var sessionId = getSessionId(event);
 
@@ -156,7 +143,6 @@ function handleChatMessage(event, message) {
         nick: getUser(sessionId).nick,
         message: translatedMessage
     };
-
 
     sendToChat(req);
 }

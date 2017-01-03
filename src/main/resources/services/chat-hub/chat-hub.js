@@ -11,7 +11,7 @@ exports.webSocketEvent = handleWsEvent;
 exports.get = handleGet;
 
 /**
- * Only allow websocket requests, otherwise return 404
+ * Only allow WebSocket requests, otherwise return 404
  * @param req
  * @returns {*}
  */
@@ -31,7 +31,7 @@ function handleGet(req) {
 }
 
 /**
- * Handle WebSockets event
+ * Handle WebSocket event
  * @param event
  */
 function handleWsEvent(event) {
@@ -59,7 +59,7 @@ function connect(event) {
 }
 
 /**
- * Handle WebSockets message
+ * Handle WebSocket message
  * @param event
  */
 function handleWsMessage(event) {
@@ -123,7 +123,7 @@ function getUser(sessionId) {
 
 
 /**
- * Get session id for a websockets event
+ * Get session id for a WebSocket event
  * @param event
  * @returns {string}
  */

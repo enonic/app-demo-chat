@@ -1,3 +1,6 @@
+var pingIntervalId;
+var sessionId;
+
 $(function() {
     var $chat = $('.chat');
     if ($chat.length) {
@@ -7,6 +10,10 @@ $(function() {
     }
 });
 
+/**
+ * Connect to WebSocket service
+ * @param url
+ */
 function wsConnect(url) {
     ws = new WebSocket(url);
     ws.onopen = onWsOpen;
@@ -15,27 +22,28 @@ function wsConnect(url) {
 }
 
 /**
- * On WebSockets open
+ * On WebSocket connection open
  */
 function onWsOpen() {
-    console.log('ws open');
-
     // Ping period in milliseconds
     var pingPeriod = 60000;
-    var pingInterval = setInterval(function() { sendPing() }, pingPeriod);
-}
-
-function onWsClose() {
-    console.log('ws close');
+    pingIntervalId = setInterval(function() { sendPing() }, pingPeriod);
 }
 
 /**
- * On WebSockets message
+ * On WebSocket connection close
+ */
+function onWsClose() {
+    clearInterval(pingIntervalId);
+    // attempt to reconnect
+    setTimeout(wsConnect, 2000);
+}
+
+/**
+ * On WebSocket message received
  * @param event
  */
 function onWsMessage(event) {
-
-    console.log(event);
 
     var data = JSON.parse(event.data);
     //console.log(data);
@@ -52,6 +60,11 @@ function onWsMessage(event) {
     else if (data.action == 'ping') {
         console.log('received ping');
     }
+
+
+
+
+
 }
 
 /**

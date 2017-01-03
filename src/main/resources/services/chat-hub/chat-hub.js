@@ -58,6 +58,10 @@ function connect(event) {
     libs.websocket.addToGroup('chat', getSessionId(event));
 }
 
+/**
+ * Handle WebSockets message
+ * @param event
+ */
 function handleWsMessage(event) {
     var message = JSON.parse(event.message);
 

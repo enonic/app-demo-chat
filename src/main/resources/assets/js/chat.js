@@ -44,10 +44,10 @@ function onWsMessage(event) {
         $('.chat__list').append('<li class="chat__item">' + data.nick + ': ' + data.message + '</li>');
     }
     else if (data.action == 'joined') {
-        $('.chat__list').append('<li class="chat__item--joined">' + data.nick + ' joined the chat ' + '</li>');
+        $('.chat__list').append('<li class="chat__item chat__item--joined">' + data.nick + ' joined the chat ' + '</li>');
     }
     else if (data.action == 'left') {
-        $('.chat__list').append('<li class="chat__item--left">' + data.nick + ' left the chat ' + '</li>');
+        $('.chat__list').append('<li class="chat__item chat__item--left">' + data.nick + ' left the chat ' + '</li>');
     }
     else if (data.action == 'ping') {
         console.log('received ping');

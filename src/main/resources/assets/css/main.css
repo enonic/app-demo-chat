@@ -1,3 +1,19 @@
 .chat__joined {
     display: none;
 }
+
+.chat__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.chat__item {
+    display: block;
+    padding: 5px 10px;
+}
+
+.chat__item--joined,
+.chat__item--left {
+    background: #eee;
+}

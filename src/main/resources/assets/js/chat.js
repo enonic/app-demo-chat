@@ -7,8 +7,8 @@ $(function() {
     var $chat = $('.chat');
     if ($chat.length) {
         wsConnect($chat.data('ws-url'));
-        bindJoinFormSubmit();
-        bindChatFormSubmit();
+        bindChatJoinFormSubmit();
+        bindChatMessageFormSubmit();
     }
 });
 
@@ -92,7 +92,7 @@ function sendPing() {
 /**
  * Bind action to submit event of join form
  */
-function bindJoinFormSubmit() {
+function bindChatJoinFormSubmit() {
     $('.chat__join-input').change(function(e) {
         avatar = $(this).val();
         joinChat(avatar);
@@ -137,11 +137,11 @@ function bindJoinFormSubmit() {
 /**
  * Bind action to submit event of chat form
  */
-function bindChatFormSubmit() {
-    $('.chat__form').submit(function(e) {
+function bindChatMessageFormSubmit() {
+    $('.chat__message-form').submit(function(e) {
 
         e.preventDefault();
-        sendChatMessage($('.chat__input').val());
+        sendChatMessage($('.chat__message-input').val());
         return false;
     });
 }

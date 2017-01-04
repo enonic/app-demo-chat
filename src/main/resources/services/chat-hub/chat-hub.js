@@ -6,6 +6,7 @@ var libs = {
 };
 
 var users = {};
+var chatGroup = 'chat';
 
 exports.webSocketEvent = handleWsEvent;
 exports.get = handleGet;
@@ -55,7 +56,7 @@ function handleWsEvent(event) {
  */
 function connect(event) {
     //sendToClient(getSessionId(event), {action: 'Connected'});
-    libs.websocket.addToGroup('chat', getSessionId(event));
+    libs.websocket.addToGroup(chatGroup, getSessionId(event));
 }
 
 /**
@@ -88,7 +89,7 @@ function handleWsMessage(event) {
  */
 function leave(event) {
     var sessionId = getSessionId(event);
-    libs.websocket.removeFromGroup('chat', sessionId);
+    libs.websocket.removeFromGroup(chatGroup, sessionId);
     sendToChat({
         action: 'left',
         avatar: getUser(sessionId).avatar
@@ -158,7 +159,7 @@ function handleChatMessage(event, message) {
  * @param req
  */
 function sendToChat(req) {
-    libs.websocket.sendToGroup('chat', JSON.stringify(req));
+    libs.websocket.sendToGroup(chatGroup, JSON.stringify(req));
 }
 
 /**

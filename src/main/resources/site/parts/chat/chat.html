@@ -1,49 +1,18 @@
 <section class="chat" data-th-attr="data-ws-url=${wsUrl}">
-    <h1>Chat room</h1>
-
     <form class="chat__join-form">
-        <h2>Select an avatar to join the chat</h2>
+        <h2 class="chat__join-heading">Select an avatar to join the chat</h2>
         <label data-th-each="i : ${#numbers.sequence(1,4)}">
             <input class="chat__join-input" type="radio" name="avatar" data-th-value="${i}"/>
             <img class="chat__join-avatar" data-th-src="${portal.assetUrl({'_path=img/avatar-' + i + '.jpg'})}"/>
         </label>
-
-
-        <!--
-            <ul class="chat__avatar-list">
-                <li data-th-each="i : ${#numbers.sequence(1,4)}">
-                    <img data-th-src="${portal.assetUrl({'_path=img/avatar-' + i + '.jpg'})}"/>
-                </li>
-            </ul>-->
     </form>
 
-    <ol class="chat__list">
-
-    </ol>
-
-
-
- <!--   <div class="chat__join">
-        <form class="chat__join-form">
-            <input type="text" placeholder="Nick" class="chat__input&#45;&#45;nick" name="chat__input&#45;&#45;nick"/>
-            <button type="submit">Join</button>
-        </form>
-    </div>
--->
-
-
-
+    <ol class="chat__list"></ol>
 
     <div class="chat__joined">
-        <form class="chat__form">
-            <input class="chat__input" type="text" name="text"/>
-            <button type="submit">Send</button>
+        <form class="chat__message-form">
+            <input class="chat__message-input" type="text" name="text"/>
+            <button class="chat__message-submit" type="submit">Send</button>
         </form>
     </div>
-
-
-<!--
-    <script data-th-src="${portal.serviceUrl({'_service=init'})}"></script>-->
-
 </section>
-

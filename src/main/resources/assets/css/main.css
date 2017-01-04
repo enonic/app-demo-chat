@@ -44,10 +44,15 @@
     background-image: url('../img/avatar-4.jpg');
 }
 
+.chat__join-heading {
+    margin-top: 0;
+}
+
 .chat__join-form {
     background: #333;
     color: #fff;
     padding: 20px;
+    text-align: center;
 
 }
 
@@ -58,4 +63,33 @@
 .chat__join-avatar {
     width: 100px;
     height: 100px;
+    border: 2px solid #fff;
+    cursor: pointer;
+    border-radius: 50%;
+    margin: 10px;
+}
+
+.chat__message-form {
+    display: flex;
+    background-color: #ccc;
+    padding: 10px;
+}
+
+.chat__message-input,
+.chat__message-submit {
+    font-size: 20px;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.chat__message-input {
+    width: 75%;
+}
+
+.chat__message-submit {
+    width: 25%;
+    background-color: #39A5C8;
+    color: #fff;
+    border: 0;
+    text-transform: uppercase;
 }

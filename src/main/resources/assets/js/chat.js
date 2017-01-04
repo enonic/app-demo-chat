@@ -74,7 +74,8 @@ function joinChat(avatar) {
 function sendChatMessage(message) {
     var req = {
         action: 'chatMessage',
-        message: message
+        message: message,
+        avatar: avatar
     };
 
     ws.send(JSON.stringify(req));
@@ -151,7 +152,7 @@ function bindChatMessageFormSubmit() {
  * @param data
  */
 wsResponseHandlers.joined = function(data) {
-    $('.chat__list').append('<li class="chat__item chat__item--joined"><div class="chat__item-avatar chat__item-avatar--' + data.avatar + '"/> joined the chat ' + '</li>');
+    $('.chat__list').append('<li class="chat__item chat__item--joined"><div class="chat__item-avatar chat__item-avatar--' + data.avatar + '"/><div class="chat__item-message"> joined the chat</div></li>');
 };
 
 /**
@@ -159,7 +160,7 @@ wsResponseHandlers.joined = function(data) {
  * @param data
  */
 wsResponseHandlers.left = function(data) {
-    $('.chat__list').append('<li class="chat__item chat__item--left"><div class="chat__item-avatar chat__item-avatar--' + data.avatar + '"/> left the chat ' + '</li>');
+    $('.chat__list').append('<li class="chat__item chat__item--left"><div class="chat__item-avatar chat__item-avatar--' + data.avatar + '"/><div class="chat__item-message"> left the chat</div></li>');
 };
 
 /**
@@ -167,5 +168,5 @@ wsResponseHandlers.left = function(data) {
  * @param data
  */
 wsResponseHandlers.chatMessage = function(data) {
-    $('.chat__list').append('<li class="chat__item"><div class="chat__item-avatar chat__item-avatar--' + data.avatar + '"/>' + data.message + '</li>');
+    $('.chat__list').append('<li class="chat__item"><div class="chat__item-avatar chat__item-avatar--' + data.avatar + '"/><div class="chat__item-message">' + data.message + '</div></li>');
 };

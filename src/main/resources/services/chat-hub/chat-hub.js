@@ -5,7 +5,7 @@ var libs = {
     morse: require('/lib/enonic/morse-translator')
 };
 
-var users = {};
+//var users = {};
 var chatGroup = 'chat';
 
 exports.webSocketEvent = handleWsEvent;
@@ -72,7 +72,7 @@ function handleWsMessage(event) {
     }
 
     if (message.action == 'chatMessage') {
-        handleChatMessage(event, message.message);
+        handleChatMessage(event, message);
         return;
     }
 
@@ -104,9 +104,9 @@ function leave(event) {
  */
 function join(event, avatar) {
     var sessionId = getSessionId(event);
-    users[sessionId] = {
+    /*users[sessionId] = {
         avatar: avatar
-    };
+    };*/
     sendToChat({
         action: 'joined',
         avatar: avatar,
@@ -141,13 +141,14 @@ function getSessionId(event) {
  * @param message
  */
 function handleChatMessage(event, message) {
-    var translatedMessage = libs.morse.translate(message);
+    var translatedMessage = libs.morse.translate(message.message);
     var sessionId = getSessionId(event);
 
     var req = {
         action: 'chatMessage',
         id: sessionId,
-        avatar: getUser(sessionId).avatar,
+        avatar: message.avatar,
+        //avatar: getUser(sessionId).avatar,
         message: translatedMessage
     };
 

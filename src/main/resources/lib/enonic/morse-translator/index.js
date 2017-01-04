@@ -24,7 +24,7 @@ exports.translate = function(text) {
 };
 
 function getMorseCharacterMap() {
-    var wordSeparator = '|';
+    var wordSeparator = '/';
 
     return {
         'a': '.-',

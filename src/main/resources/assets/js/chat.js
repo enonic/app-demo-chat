@@ -1,5 +1,7 @@
 var pingIntervalId;
 var sessionId;
+var avatar;
+var wsResponseHandlers = {};
 
 $(function() {
     var $chat = $('.chat');
@@ -44,37 +46,22 @@ function onWsClose() {
  * @param event
  */
 function onWsMessage(event) {
-
     var data = JSON.parse(event.data);
-    //console.log(data);
 
-    if (data.action == 'chatMessage') {
-        $('.chat__list').append('<li class="chat__item">' + data.nick + ': ' + data.message + '</li>');
+    var handler = wsResponseHandlers[data.action];
+    if (handler) {
+        handler(data);
     }
-    else if (data.action == 'joined') {
-        $('.chat__list').append('<li class="chat__item chat__item--joined">' + data.nick + ' joined the chat ' + '</li>');
-    }
-    else if (data.action == 'left') {
-        $('.chat__list').append('<li class="chat__item chat__item--left">' + data.nick + ' left the chat ' + '</li>');
-    }
-    else if (data.action == 'ping') {
-        console.log('received ping');
-    }
-
-
-
-
-
 }
 
 /**
  * Join chat room
- * @param nick
+ * @param avatar
  */
-function joinChat(nick) {
+function joinChat(avatar) {
     var req = {
         action: 'join',
-        nick: nick
+        avatar: avatar
     };
 
     ws.send(JSON.stringify(req));
@@ -106,6 +93,32 @@ function sendPing() {
  * Bind action to submit event of join form
  */
 function bindJoinFormSubmit() {
+    $('.chat__join-input').change(function(e) {
+        avatar = $(this).val();
+        joinChat(avatar);
+        $('.chat__join-form').hide();
+        $('.chat__joined').show();
+    });
+/*
+    $('#my_radio_box').change(function(){
+        selected_value = $("input[name='my_options']:checked").val();
+    });
+
+    $('.chat__join-form').submit(function(e) {
+        e.preventDefault();
+
+        var nick = $('.chat__input--nick').val();
+
+        joinChat(nick);
+
+        $(this).hide();
+
+        $('.chat__joined').show();
+
+        return false;
+    });*/
+}
+/*function bindJoinFormSubmit() {
     $('.chat__join-form').submit(function(e) {
         e.preventDefault();
 
@@ -119,7 +132,7 @@ function bindJoinFormSubmit() {
 
         return false;
     });
-}
+}*/
 
 /**
  * Bind action to submit event of chat form
@@ -132,3 +145,27 @@ function bindChatFormSubmit() {
         return false;
     });
 }
+
+/**
+ * Handle joined event
+ * @param data
+ */
+wsResponseHandlers.joined = function(data) {
+    $('.chat__list').append('<li class="chat__item chat__item--joined"><div class="chat__item-avatar chat__item-avatar--' + data.avatar + '"/> joined the chat ' + '</li>');
+};
+
+/**
+ * Handle left event
+ * @param data
+ */
+wsResponseHandlers.left = function(data) {
+    $('.chat__list').append('<li class="chat__item chat__item--left"><div class="chat__item-avatar chat__item-avatar--' + data.avatar + '"/> left the chat ' + '</li>');
+};
+
+/**
+ * Handle chatMessage event
+ * @param data
+ */
+wsResponseHandlers.chatMessage = function(data) {
+    $('.chat__list').append('<li class="chat__item"><div class="chat__item-avatar chat__item-avatar--' + data.avatar + '"/>' + data.message + '</li>');
+};

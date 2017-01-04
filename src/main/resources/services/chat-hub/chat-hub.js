@@ -66,8 +66,7 @@ function handleWsMessage(event) {
     var message = JSON.parse(event.message);
 
     if (message.action == 'join') {
-        libs.util.log(event);
-        join(event, message.nick);
+        join(event, message.avatar);
         return;
     }
 
@@ -76,6 +75,7 @@ function handleWsMessage(event) {
         return;
     }
 
+    // Just for test
     if (message.action == 'ping') {
         libs.util.log(event);
         return;
@@ -91,25 +91,27 @@ function leave(event) {
     libs.websocket.removeFromGroup('chat', sessionId);
     sendToChat({
         action: 'left',
-        nick: getUser(sessionId).nick
+        avatar: getUser(sessionId).avatar
     });
     delete users[sessionId];
 }
 
 /**
- * User joins chat room (with nick)
+ * User joins chat room (with avatar)
  * @param event
  * @param nick
  */
-function join(event, nick) {
+function join(event, avatar) {
     var sessionId = getSessionId(event);
     users[sessionId] = {
-        nick: nick
+        avatar: avatar
     };
     sendToChat({
         action: 'joined',
-        nick: nick
+        avatar: avatar,
+        sessionId: sessionId
     });
+
 }
 
 /**
@@ -144,7 +146,7 @@ function handleChatMessage(event, message) {
     var req = {
         action: 'chatMessage',
         id: sessionId,
-        nick: getUser(sessionId).nick,
+        avatar: getUser(sessionId).avatar,
         message: translatedMessage
     };
 

@@ -84,9 +84,8 @@ function leave(event) {
     libs.websocket.removeFromGroup(chatGroup, sessionId);
     sendToChat({
         action: 'left',
-        avatar: getUser(sessionId).avatar
+        sessionId: sessionId
     });
-    delete users[sessionId];
 }
 
 /**
@@ -103,16 +102,6 @@ function join(event, avatar) {
     });
 
 }
-
-/**
- * Get user by session id
- * @param sessionId
- * @returns {*}
- */
-function getUser(sessionId) {
-    return users[sessionId];
-}
-
 
 /**
  * Get session id for a WebSocket event

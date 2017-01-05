@@ -102,47 +102,13 @@ function bindChatJoinFormSubmit() {
         $('.chat__join-form').hide();
         $('.chat__joined').show();
     });
-/*
-    $('#my_radio_box').change(function(){
-        selected_value = $("input[name='my_options']:checked").val();
-    });
-
-    $('.chat__join-form').submit(function(e) {
-        e.preventDefault();
-
-        var nick = $('.chat__input--nick').val();
-
-        joinChat(nick);
-
-        $(this).hide();
-
-        $('.chat__joined').show();
-
-        return false;
-    });*/
 }
-/*function bindJoinFormSubmit() {
-    $('.chat__join-form').submit(function(e) {
-        e.preventDefault();
-
-        var nick = $('.chat__input--nick').val();
-
-        joinChat(nick);
-
-        $(this).hide();
-
-        $('.chat__joined').show();
-
-        return false;
-    });
-}*/
 
 /**
  * Bind action to submit event of chat form
  */
 function bindChatMessageFormSubmit() {
     $('.chat__message-form').submit(function(e) {
-
         e.preventDefault();
         sendChatMessage($('.chat__message-input').val());
         return false;
@@ -162,7 +128,7 @@ wsResponseHandlers.joined = function(data) {
  * @param data
  */
 wsResponseHandlers.left = function(data) {
-    $('.chat__list').append('<li class="chat__item chat__item--left"><div class="chat__item-avatar chat__item-avatar--' + data.avatar + '"/><div class="chat__item-message">' + data.sessionId + ' left the chat</div></li>');
+    $('.chat__list').append('<li class="chat__item chat__item--left"><div class="chat__item-message">' + data.sessionId + ' left the chat</div></li>');
 };
 
 /**

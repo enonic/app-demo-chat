@@ -1,11 +1,9 @@
 var libs = {
     websocket: require('/lib/xp/websocket'),
     content: require('/lib/xp/content'),
-    util: require('/lib/enonic/util'),
     morse: require('/lib/enonic/morse-translator')
 };
 
-//var users = {};
 var chatGroup = 'chat';
 
 exports.webSocketEvent = handleWsEvent;
@@ -75,12 +73,6 @@ function handleWsMessage(event) {
         handleChatMessage(event, message);
         return;
     }
-
-    // Just for test
-    if (message.action == 'ping') {
-        libs.util.log(event);
-        return;
-    }
 }
 
 /**
@@ -104,9 +96,6 @@ function leave(event) {
  */
 function join(event, avatar) {
     var sessionId = getSessionId(event);
-    /*users[sessionId] = {
-        avatar: avatar
-    };*/
     sendToChat({
         action: 'joined',
         avatar: avatar,
@@ -148,7 +137,6 @@ function handleChatMessage(event, message) {
         action: 'chatMessage',
         id: sessionId,
         avatar: message.avatar,
-        //avatar: getUser(sessionId).avatar,
         message: translatedMessage
     };
 

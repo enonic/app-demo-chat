@@ -3,6 +3,9 @@ var sessionId;
 var avatar;
 var wsResponseHandlers = {};
 
+/**
+ * On document ready
+ */
 $(function() {
     var $chat = $('.chat');
     if ($chat.length) {
@@ -47,7 +50,6 @@ function onWsClose() {
  */
 function onWsMessage(event) {
     var data = JSON.parse(event.data);
-
     var handler = wsResponseHandlers[data.action];
     if (handler) {
         handler(data);
@@ -152,7 +154,7 @@ function bindChatMessageFormSubmit() {
  * @param data
  */
 wsResponseHandlers.joined = function(data) {
-    $('.chat__list').append('<li class="chat__item chat__item--joined"><div class="chat__item-avatar chat__item-avatar--' + data.avatar + '"/><div class="chat__item-message"> joined the chat</div></li>');
+    $('.chat__list').append('<li class="chat__item chat__item--joined"><div class="chat__item-avatar chat__item-avatar--' + data.avatar + '"/><div class="chat__item-message">' + data.sessionId + ' joined the chat</div></li>');
 };
 
 /**
@@ -160,7 +162,7 @@ wsResponseHandlers.joined = function(data) {
  * @param data
  */
 wsResponseHandlers.left = function(data) {
-    $('.chat__list').append('<li class="chat__item chat__item--left"><div class="chat__item-avatar chat__item-avatar--' + data.avatar + '"/><div class="chat__item-message"> left the chat</div></li>');
+    $('.chat__list').append('<li class="chat__item chat__item--left"><div class="chat__item-avatar chat__item-avatar--' + data.avatar + '"/><div class="chat__item-message">' + data.sessionId + ' left the chat</div></li>');
 };
 
 /**

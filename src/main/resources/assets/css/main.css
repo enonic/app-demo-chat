@@ -9,11 +9,14 @@
 }
 
 .chat__item {
-    display: flex;
-    flex-wrap: nowrap;
+    display: block;
     padding: 5px 10px;
     font-size: 28px;
+    overflow: hidden;
+}
 
+.chat__item:nth-child(even) {
+    background-color: #fafafa;
 }
 
 .chat__item--joined,
@@ -23,7 +26,7 @@
 }
 
 .chat__item-avatar {
-    display: flex;
+    float: left;
     width: 50px;
     height: 50px;
     background-repeat: no-repeat;
@@ -49,8 +52,7 @@
 }
 
 .chat__item-message {
-    display: flex;
-    width: 100%;
+    overflow: hidden;
 }
 
 .chat__join-heading {
@@ -79,9 +81,16 @@
 }
 
 .chat__message-form {
-    display: flex;
     background-color: #ccc;
     padding: 10px;
+}
+
+.chat__message-fieldset {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: -o-flex;
+    display: flex;
 }
 
 .chat__message-input,
@@ -101,4 +110,9 @@
     color: #fff;
     border: 0;
     text-transform: uppercase;
+}
+
+.chat__message-notice {
+    color: #333;
+    font-size: 0.8em;
 }

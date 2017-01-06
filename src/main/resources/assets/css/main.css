@@ -19,6 +19,7 @@
     background-color: #fafafa;
 }
 
+.chat__item--intro,
 .chat__item--joined,
 .chat__item--left {
     background: #eee;

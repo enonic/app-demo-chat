@@ -1,3 +1,8 @@
+/**
+ * Translate text into morse code
+ * @param text
+ * @returns {string}
+ */
 exports.translate = function(text) {
     var translatedText = '';
     var characterSeparator = ' ';
@@ -23,6 +28,10 @@ exports.translate = function(text) {
     return translatedText;
 };
 
+/**
+ * Get a mapping for morse characters
+ * @returns {Object}
+ */
 function getMorseCharacterMap() {
     var wordSeparator = '/';
 

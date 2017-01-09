@@ -1,5 +1,21 @@
+.page-default__body {
+    margin: 0;
+    padding: 0;
+}
+
+.chat__container {
+    position: relative;
+    height: calc(100vh - 100px);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
 .chat__joined {
     display: none;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
 }
 
 .chat__list {

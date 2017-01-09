@@ -11,7 +11,7 @@ exports.translate = function(text) {
     // Iterate through each character in text
     for (var i = 0, j = text.length; i < j; i++) {
         var character = text.toLowerCase()[i];
-        var translatedCharacter = '?';
+        var translatedCharacter = '';
 
         if (character in characterMap) {
             translatedCharacter = characterMap[character];

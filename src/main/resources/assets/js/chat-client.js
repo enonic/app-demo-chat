@@ -137,4 +137,7 @@ wsResponseHandlers.left = function(data) {
  */
 wsResponseHandlers.chatMessage = function(data) {
     $('.chat__list').append('<li class="chat__item"><div class="chat__item-avatar chat__item-avatar--' + data.avatar + '"/><div class="chat__item-message">' + data.message + '</div></li>');
+
+    console.log($('.chat__container')[0].scrollHeight);
+    $('.chat__container')[0].scrollTop = $('.chat__container')[0].scrollHeight;
 };

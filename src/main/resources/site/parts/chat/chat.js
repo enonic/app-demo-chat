@@ -12,6 +12,7 @@ function handleGet(req) {
     function createModel(req) {
         var model = {};
         model.wsUrl = getWsUrl();
+        model.avatars = getAvatars();
         return model;
     }
 
@@ -23,6 +24,15 @@ function handleGet(req) {
         var url = libs.portal.serviceUrl({service: 'chat-hub', type: 'absolute'});
         url = 'ws' + url.substring(url.indexOf(':'));
         return url;
+    }
+
+    function getAvatars() {
+        return [
+            {id: 1, name: 'Morse'},
+            {id: 2, name: 'Einstein'},
+            {id: 3, name: 'Tesla'},
+            {id: 4, name: 'Hopper'}
+        ]
     }
 
     return {

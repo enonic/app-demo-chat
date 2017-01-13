@@ -3,92 +3,172 @@
     padding: 0;
 }
 
-.chat__container {
+.morse-chat * {
+    box-sizing: border-box;
+}
+
+/*.morse-chat__container {
     position: relative;
     height: calc(100vh - 100px);
-    box-sizing: border-box;
-    overflow: hidden;
-}
+    overflow-y: scroll;
+}*/
 
-.chat__joined {
-    display: none;
-    position: fixed;
-    bottom: 0;
+.morse-chat__container {
+    height: 600px;
+    max-height: 100%;
     width: 100%;
-    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: stretch;
 }
 
-.chat__list {
+.morse-chat__header {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+}
+
+.morse-chat__header-heading {
+    margin: 0;
+    padding: 10px;
+    font-size: 40px;
+}
+
+.morse-chat__header-github {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.morse-chat__header-github-img {
+    vertical-align: middle;
+    height: 30px;
+}
+
+.morse-chat__header-github-text {
+    color: #fff;
+    text-decoration: none;
+}
+
+@media (max-width: 480px) {
+    .morse-chat__header-github {
+        display: none;
+    }
+}
+
+.morse-chat__list-container {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: stretch;
+}
+
+.morse-chat__list {
     list-style: none;
     margin: 0;
     padding: 0;
+    overflow-y:auto;
+    width: 100%;
+
 }
 
-.chat__item {
+.morse-chat__item {
     display: block;
     padding: 5px 10px;
     font-size: 28px;
     overflow: hidden;
 }
 
-.chat__item:nth-child(even) {
+.morse-chat__item--message:nth-child(even) {
     background-color: #fafafa;
 }
 
-.chat__item--intro,
-.chat__item--joined,
-.chat__item--left {
+.morse-chat__item--intro,
+.morse-chat__item--info,
+.morse-chat__item--joined,
+.morse-chat__item--left {
     background: #eee;
     font-size: 14px;
 }
 
-.chat__item-avatar {
+.morse-chat__item--joined,
+.morse-chat__item--left {
+    background: #eee;
+}
+
+.morse-chat__item--intro,
+.morse-chat__item--info {
+    background: rgba(55, 164, 200, 0.25);
+}
+
+.morse-chat__item-avatar {
     float: left;
     width: 50px;
     height: 50px;
+    border-radius: 50%;
     background-repeat: no-repeat;
     background-size: cover;
     vertical-align: middle;
     margin-right: 10px;
 }
 
-.chat__item-avatar--1 {
+.morse-chat__item-avatar--1 {
     background-image: url('../img/avatar-1.jpg');
 }
 
-.chat__item-avatar--2 {
+.morse-chat__item-avatar--2 {
     background-image: url('../img/avatar-2.jpg');
 }
 
-.chat__item-avatar--3 {
+.morse-chat__item-avatar--3 {
     background-image: url('../img/avatar-3.jpg');
 }
 
-.chat__item-avatar--4 {
+.morse-chat__item-avatar--4 {
     background-image: url('../img/avatar-4.jpg');
 }
 
-.chat__item-message {
+.morse-chat__item-message {
     overflow: hidden;
+    line-height: 2;
 }
 
-.chat__join-heading {
+.morse-chat__join-heading {
     margin-top: 0;
+    font-size: 20px;
 }
 
-.chat__join-form {
-    background: #333;
-    color: #fff;
+.morse-chat__join-form {
+    max-height: 1000px;
     padding: 20px;
     text-align: center;
+    -webkit-transition: all 300ms ease-out;
+    -moz-transition: all 300ms ease-out;
+    -ms-transition: all 300ms ease-out;
+    -o-transition: all 300ms ease-out;
+    transition: all 300ms ease-out;
 
 }
 
-.chat__join-input {
+
+
+
+
+.morse-chat__join-label {
+    display: inline-block;
+}
+
+
+.morse-chat__join-input {
     display: none;
 }
 
-.chat__join-avatar {
+.morse-chat__join-avatar-img {
     width: 100px;
     height: 100px;
     border: 2px solid #fff;
@@ -97,12 +177,20 @@
     margin: 10px;
 }
 
-.chat__message-form {
-    background-color: #ccc;
-    padding: 10px;
+.morse-chat__join-avatar-name {
+    display: block;
+    margin: 0;
+    font-size: 14px;
 }
 
-.chat__message-fieldset {
+.morse-chat__message-form {
+    display: none;
+    background-color: #ccc;
+    padding: 10px;
+    width: 100%;
+}
+
+.morse-chat__message-fieldset {
     display: -webkit-flex;
     display: -moz-flex;
     display: -ms-flexbox;
@@ -110,18 +198,17 @@
     display: flex;
 }
 
-.chat__message-input,
-.chat__message-submit {
+.morse-chat__message-input,
+.morse-chat__message-submit {
     font-size: 20px;
-    box-sizing: border-box;
     padding: 5px;
 }
 
-.chat__message-input {
+.morse-chat__message-input {
     width: 75%;
 }
 
-.chat__message-submit {
+.morse-chat__message-submit {
     width: 25%;
     background-color: #39A5C8;
     color: #fff;
@@ -129,7 +216,17 @@
     text-transform: uppercase;
 }
 
-.chat__message-notice {
+.morse-chat__message-notice {
     color: #333;
     font-size: 0.8em;
+}
+
+.morse-chat--joined .morse-chat__join-form {
+    max-height: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.morse-chat--joined .morse-chat__message-form {
+    display: block;
 }

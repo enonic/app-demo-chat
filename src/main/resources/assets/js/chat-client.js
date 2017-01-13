@@ -1,19 +1,39 @@
 var pingIntervalId;
-var sessionId;
 var avatar;
 var wsResponseHandlers = {};
+var morseChatInitiated = false;
 
 /**
- * On document ready
+ * Initiate chat in web components mode
  */
-$(function() {
-    var $chat = $('.chat');
+window.addEventListener('WebComponentsReady', function(e) {
+    // imports are loaded and elements have been registered
+    if (!morseChatInitiated) {
+        initMorseChat();
+    }
+});
+
+/**
+ * Initiate chat in "direct" mode
+ */
+window.onload = function() {
+    if (!morseChatInitiated) {
+        initMorseChat();
+    }
+};
+
+/**
+ * Initiate chat
+ */
+function initMorseChat() {
+    morseChatInitiated = true;
+    var $chat = $('.morse-chat');
     if ($chat.length) {
         wsConnect($chat.data('ws-url'));
         bindChatJoinFormSubmit();
         bindChatMessageFormSubmit();
     }
-});
+}
 
 /**
  * Connect to WebSocket service
@@ -92,15 +112,19 @@ function sendPing() {
     }));
 }
 
+function scrollToBottom() {
+    $('.morse-chat__list')[0].scrollTop = $('.morse-chat__list')[0].scrollHeight;
+}
+
 /**
  * Bind action to submit event of join form
  */
 function bindChatJoinFormSubmit() {
-    $('.chat__join-input').change(function(e) {
+    console.log('bind chat join form submit');
+    $('.morse-chat__join-input').change(function(e) {
         avatar = $(this).val();
         joinChat(avatar);
-        $('.chat__join-form').hide();
-        $('.chat__joined').show();
+        $('.morse-chat').addClass('morse-chat--joined');
     });
 }
 
@@ -108,9 +132,9 @@ function bindChatJoinFormSubmit() {
  * Bind action to submit event of chat form
  */
 function bindChatMessageFormSubmit() {
-    $('.chat__message-form').submit(function(e) {
+    $('.morse-chat__message-form').submit(function(e) {
         e.preventDefault();
-        sendChatMessage($('.chat__message-input').val());
+        sendChatMessage($('.morse-chat__message-input').val());
         return false;
     });
 }
@@ -120,7 +144,8 @@ function bindChatMessageFormSubmit() {
  * @param data
  */
 wsResponseHandlers.joined = function(data) {
-    $('.chat__list').append('<li class="chat__item chat__item--joined"><div class="chat__item-avatar chat__item-avatar--' + data.avatar + '"/><div class="chat__item-message">' + data.sessionId + ' joined the chat</div></li>');
+    $('.morse-chat__list').append('<li class="morse-chat__item morse-chat__item--joined"><div class="morse-chat__item-avatar morse-chat__item-avatar--' + data.avatar + '"/><div class="morse-chat__item-message">' + data.sessionId + ' joined the chat</div></li>');
+    scrollToBottom();
 };
 
 /**
@@ -128,7 +153,8 @@ wsResponseHandlers.joined = function(data) {
  * @param data
  */
 wsResponseHandlers.left = function(data) {
-    $('.chat__list').append('<li class="chat__item chat__item--left"><div class="chat__item-message">' + data.sessionId + ' left the chat</div></li>');
+    $('.morse-chat__list').append('<li class="morse-chat__item morse-chat__item--left"><div class="morse-chat__item-message">' + data.sessionId + ' left the chat</div></li>');
+    scrollToBottom();
 };
 
 /**
@@ -136,8 +162,15 @@ wsResponseHandlers.left = function(data) {
  * @param data
  */
 wsResponseHandlers.chatMessage = function(data) {
-    $('.chat__list').append('<li class="chat__item"><div class="chat__item-avatar chat__item-avatar--' + data.avatar + '"/><div class="chat__item-message">' + data.message + '</div></li>');
+    $('.morse-chat__list').append('<li class="morse-chat__item morse-chat__item--message"><div class="morse-chat__item-avatar morse-chat__item-avatar--' + data.avatar + '"/><div class="morse-chat__item-message">' + data.message + '</div></li>');
+    scrollToBottom();
+};
 
-    console.log($('.chat__container')[0].scrollHeight);
-    $('.chat__container')[0].scrollTop = $('.chat__container')[0].scrollHeight;
+/**
+ * Handle infoMessage event
+ * @param data
+ */
+wsResponseHandlers.infoMessage = function(data) {
+    $('.morse-chat__list').append('<li class="morse-chat__item morse-chat__item--info"><div class="morse-chat__item-message">' + data.message + '</div></li>');
+    scrollToBottom();
 };

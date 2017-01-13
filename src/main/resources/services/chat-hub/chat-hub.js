@@ -70,7 +70,12 @@ function handleWsMessage(event) {
     }
 
     if (message.action == 'chatMessage') {
-        handleChatMessage(event, message);
+        if (message.message.toLowerCase() == 'info') {
+            sendInfoMessage(event);
+        }
+        else {
+            handleChatMessage(event, message);
+        }
         return;
     }
 }
@@ -147,5 +152,22 @@ function sendToChat(req) {
  */
 function sendToClient(sessionId, message) {
     libs.websocket.send(sessionId, JSON.stringify(message));
+}
+
+/**
+ * Send info message to single user
+ * @param event
+ */
+function sendInfoMessage(event) {
+    var sessionId = getSessionId(event);
+    var message = 'The Morse chat server is essentially a micro service using web sockets to relay chat messages between the clients. The app uses a simple library that maps alphanumeric characters into their Morse equivalents.<br/>';
+    message += 'The source code can be <a href="https://github.com/enonic/app-demo-chat">viewed on GitHub.</a><br/>';
+    message += 'The chat app can also be downloaded and installed from <a href="https://market.enonic.com/">Enonic Market</a>. Feel free to use and adapt the app as you please.';
+    var req = {
+        action: 'infoMessage',
+        id: sessionId,
+        message: message
+    };
+    sendToClient(sessionId, req);
 }
 

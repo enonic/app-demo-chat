@@ -18,6 +18,10 @@
     height: 600px;
     max-height: 100%;
     width: 100%;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: -o-flex;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -62,13 +66,20 @@
 }
 
 .morse-chat__list-container {
+    -webkit-flex: 1;
+    -ms-flex: 1;
     flex: 1;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: -o-flex;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: stretch;
     align-content: stretch;
     background-color: #fff;
+    overflow-y: scroll;
 }
 
 .morse-chat__list {
@@ -155,12 +166,7 @@
     -ms-transition: all 300ms ease-out;
     -o-transition: all 300ms ease-out;
     transition: all 300ms ease-out;
-
 }
-
-
-
-
 
 .morse-chat__join-label {
     display: inline-block;

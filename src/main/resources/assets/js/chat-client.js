@@ -4,7 +4,7 @@ var wsResponseHandlers = {};
 var morseChatInitiated = false;
 
 /**
- * Initiate chat in web components mode
+ * Initiate chat in web components mode (for Enonic.com demo)
  */
 window.addEventListener('WebComponentsReady', function(e) {
     // imports are loaded and elements have been registered
@@ -120,7 +120,6 @@ function scrollToBottom() {
  * Bind action to submit event of join form
  */
 function bindChatJoinFormSubmit() {
-    console.log('bind chat join form submit');
     $('.morse-chat__join-input').change(function(e) {
         avatar = $(this).val();
         joinChat(avatar);

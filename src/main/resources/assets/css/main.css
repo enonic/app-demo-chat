@@ -14,6 +14,7 @@
 }*/
 
 .morse-chat__container {
+    position: relative;
     height: 600px;
     max-height: 100%;
     width: 100%;
@@ -41,6 +42,7 @@
     position: absolute;
     right: 10px;
     top: 10px;
+    text-decoration: none;
 }
 
 .morse-chat__header-github-img {
@@ -66,6 +68,7 @@
     justify-content: flex-start;
     align-items: stretch;
     align-content: stretch;
+    background-color: #fff;
 }
 
 .morse-chat__list {
@@ -74,7 +77,7 @@
     padding: 0;
     overflow-y:auto;
     width: 100%;
-
+    text-align: left;
 }
 
 .morse-chat__item {

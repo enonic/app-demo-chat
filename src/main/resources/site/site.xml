@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
   <config/>
+  <mappings>
+    <mapping controller="/site/pages/morse-chat/morse-chat.js" order="10">
+      <pattern>.*\/morse-chat</pattern>
+    </mapping>
+  </mappings>
 </site>

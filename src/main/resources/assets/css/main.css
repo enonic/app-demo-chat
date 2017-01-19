@@ -45,7 +45,9 @@
 .morse-chat__header-github {
     position: absolute;
     right: 10px;
-    top: 10px;
+    top: 20px;
+    margin: 0;
+    border: none;
     text-decoration: none;
 }
 
@@ -57,6 +59,7 @@
 .morse-chat__header-github-text {
     color: #fff;
     text-decoration: none;
+    margin-left: 5px;
 }
 
 @media (max-width: 480px) {

@@ -29,10 +29,22 @@ function initMorseChat() {
     morseChatInitiated = true;
     var $chat = $('.morse-chat');
     if ($chat.length) {
-        wsConnect($chat.data('ws-url'));
+        var wsUrl = getWebSocketUrl($chat);
+        console.log(wsUrl);
+        wsConnect(wsUrl);
         bindChatJoinFormSubmit();
         bindChatMessageFormSubmit();
     }
+}
+
+function getWebSocketUrl($chat) {
+    var url = $chat.data('ws-url');
+    var l = window.location;
+    console.log(l.protocol);
+    if (l.protocol === 'https:') {
+        url = url.replace(/^ws:\/\//i, 'wss://');
+    }
+    return url;
 }
 
 /**
@@ -112,6 +124,9 @@ function sendPing() {
     }));
 }
 
+/**
+ * Scroll to bottom of morse chat list
+ */
 function scrollToBottom() {
     $('.morse-chat__list')[0].scrollTop = $('.morse-chat__list')[0].scrollHeight;
 }

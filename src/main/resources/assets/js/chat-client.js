@@ -37,6 +37,12 @@ function initMorseChat() {
     }
 }
 
+/**
+ * Get url to websocket service
+ * Checks if client is loaded in https mode
+ * If https, secure websocket is used
+ * @param $chat
+ */
 function getWebSocketUrl($chat) {
     var url = $chat.data('ws-url');
     var l = window.location;

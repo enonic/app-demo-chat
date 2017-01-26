@@ -15,9 +15,6 @@ exports.get = handleGet;
  * @returns {*}
  */
 function handleGet(req) {
-
-    log.info('tlo log %s', JSON.stringify(req, null, 4));
-
     if (!req.webSocket) {
         return {
             status: 404

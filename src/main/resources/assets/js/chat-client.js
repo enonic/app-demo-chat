@@ -30,7 +30,6 @@ function initMorseChat() {
     var $chat = $('.morse-chat');
     if ($chat.length) {
         var wsUrl = getWebSocketUrl($chat);
-        console.log(wsUrl);
         wsConnect(wsUrl);
         bindChatJoinFormSubmit();
         bindChatMessageFormSubmit();
@@ -46,7 +45,6 @@ function initMorseChat() {
 function getWebSocketUrl($chat) {
     var url = $chat.data('ws-url');
     var l = window.location;
-    console.log(l.protocol);
     if (l.protocol === 'https:') {
         url = url.replace(/^ws:\/\//i, 'wss://');
     }

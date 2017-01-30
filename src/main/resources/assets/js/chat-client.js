@@ -153,6 +153,7 @@ function bindChatMessageFormSubmit() {
     $('.morse-chat__message-form').submit(function(e) {
         e.preventDefault();
         sendChatMessage($('.morse-chat__message-input').val());
+        $('.morse-chat__message-input').val('');
         return false;
     });
 }

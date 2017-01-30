@@ -17,15 +17,15 @@
     <section class="morse-chat morse-chat__container" data-th-attr="data-ws-url=${wsUrl}">
 
         <header class="morse-chat__header">
-            <h1 class="morse-chat__header-heading">Morse chat</h1>
+            <h1 class="morse-chat__header-heading">Sample chat app built with XP</h1>
 
-            <a class="morse-chat__header-github" href="https://github.com/enonic/app-demo-chat">
+            <a class="morse-chat__header-github" href="https://github.com/enonic/app-demo-chat/blob/master/src/main/resources/services/chat-hub/chat-hub.js">
                 <img class="morse-chat__header-github-img" data-th-src="${portal.assetUrl({'_path=img/github-icon.svg'})}"/>
-                <span class="morse-chat__header-github-text">View on GitHub</span>
+                <span class="morse-chat__header-github-text">Source code</span>
             </a>
 
             <form class="morse-chat__join-form">
-                <h2 class="morse-chat__join-heading">Select an avatar to join the chat</h2>
+                <h2 class="morse-chat__join-heading">Select an avatar to start chatting in Morse code</h2>
                 <label class="morse-chat__join-label" data-th-each="avatar : ${avatars}">
                     <input class="morse-chat__join-input" type="radio" name="avatar" data-th-value="${avatar.id}"/>
                     <img class="morse-chat__join-avatar-img" data-th-src="${portal.assetUrl({'_path=img/avatar-' + avatar.id + '.jpg'})}"/>

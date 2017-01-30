@@ -63,8 +63,22 @@
 }
 
 @media (max-width: 480px) {
+    .morse-chat__header {
+        padding-bottom: 5px;
+    }
+
+    .morse-chat__header-heading {
+        font-size: 24px;
+    }
+
     .morse-chat__header-github {
-        display: none;
+        position: relative;
+        top: 0;
+        right: auto;
+    }
+
+    .morse-chat__header-github-img {
+        height: 20px;
     }
 }
 

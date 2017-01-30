@@ -33,6 +33,7 @@ function initMorseChat() {
         wsConnect(wsUrl);
         bindChatJoinFormSubmit();
         bindChatMessageFormSubmit();
+        bindChatMessageFormKeyUp();
     }
 }
 
@@ -155,6 +156,23 @@ function bindChatMessageFormSubmit() {
         sendChatMessage($('.morse-chat__message-input').val());
         $('.morse-chat__message-input').val('');
         return false;
+    });
+}
+
+/**
+ * Bind key up on chat form input
+ * Enables submit button if not empty
+ */
+function bindChatMessageFormKeyUp() {
+    var $input = $('.morse-chat__message-input');
+    var $submitBtn = $('.morse-chat__message-submit');
+    $input.keyup(function() {
+        if ($input.val().length == 0) {
+            $submitBtn.attr('disabled', 'disabled');
+        }
+        else {
+            $submitBtn.removeAttr('disabled');
+        }
     });
 }
 

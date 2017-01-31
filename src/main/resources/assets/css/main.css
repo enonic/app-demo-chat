@@ -202,6 +202,7 @@
     cursor: pointer;
     border-radius: 50%;
     margin: 10px;
+    pointer-events: none;
 }
 
 .morse-chat__join-avatar-name {

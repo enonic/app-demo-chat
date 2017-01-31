@@ -20,16 +20,16 @@
             <h1 class="morse-chat__header-heading">Sample chat app built with XP</h1>
 
             <a class="morse-chat__header-github" href="https://github.com/enonic/app-demo-chat/blob/master/src/main/resources/services/chat-hub/chat-hub.js">
-                <img class="morse-chat__header-github-img" data-th-src="${portal.assetUrl({'_path=img/github-icon.svg'})}"/>
+                <img class="morse-chat__header-github-img" data-th-src="${portal.assetUrl({'_path=img/github-icon.svg'})}" alt="GitHub logo"/>
                 <span class="morse-chat__header-github-text">Source code</span>
             </a>
 
-            <form class="morse-chat__join-form">
+            <form class="morse-chat__join-form" autocomplete="off">
                 <h2 class="morse-chat__join-heading">Select an avatar to start chatting in Morse code</h2>
                 <label class="morse-chat__join-label" data-th-each="avatar : ${avatars}">
                     <input class="morse-chat__join-input" type="radio" name="avatar" data-th-value="${avatar.id}"/>
-                    <img class="morse-chat__join-avatar-img" data-th-src="${portal.assetUrl({'_path=img/avatar-' + avatar.id + '.jpg'})}"/>
-                    <h3 class="morse-chat__join-avatar-name" data-th-text="${avatar.name}"/>
+                    <img class="morse-chat__join-avatar-img" data-th-src="${portal.assetUrl({'_path=img/avatar-' + avatar.id + '.jpg'})}" data-th-attr="alt='Avatar image for ' + ${avatar.name}"/>
+                    <span class="morse-chat__join-avatar-name" data-th-text="${avatar.name}"/>
                 </label>
             </form>
 
@@ -48,7 +48,7 @@
 
         <form class="morse-chat__message-form">
             <div class="morse-chat__message-fieldset">
-                <input class="morse-chat__message-input" type="text" name="text"/>
+                <input class="morse-chat__message-input" type="text" name="text" autocomplete="off"/>
                 <button class="morse-chat__message-submit" type="submit" disabled="disabled">Send</button>
             </div>
             <p class="morse-chat__message-notice">Everything you type will be automatically translated to Morse code.</p>

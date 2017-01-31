@@ -40,12 +40,13 @@
     margin: 0;
     padding: 10px;
     font-size: 40px;
+    line-height: 1.5;
 }
 
 .morse-chat__header-github {
     position: absolute;
     right: 10px;
-    top: 20px;
+    top: 25px;
     margin: 0;
     border: none;
     text-decoration: none;

@@ -208,6 +208,13 @@
     pointer-events: none;
 }
 
+@media (max-width: 480px) {
+    .morse-chat__join-avatar-img {
+        width: 60px;
+        height: 60px;
+    }
+}
+
 .morse-chat__join-avatar-name {
     display: block;
     margin: 0;

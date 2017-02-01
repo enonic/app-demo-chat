@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <meta name="viewport"
-          content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=1, minimum-scale=1.0, maximum-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
 
     <title>Enonic Demo Chat</title>
 
@@ -40,7 +39,7 @@
         <div class="morse-chat__list-container">
             <ol class="morse-chat__list">
                 <li class="morse-chat__item morse-chat__item--intro">
-                    <div class="morse-chat__item-message">This is the <strong>Morse chat.</strong><br/>Everything you type will be translated to Morse code.<br/>Type <strong>INFO</strong> in the chat to learn how this was made.</div>
+                    <div class="morse-chat__item-message">This is the <strong>Morse chat.</strong><br/>Everything you type will be translated to Morse code.<br/>Type <strong>INFO</strong> in the chat to learn how this was made.<br/><a data-th-href="${chatUrl}" target="_blank">Nobody here? Open a new chat window to chat with yourself.</a></div>
                 </li>
             </ol>
         </div>

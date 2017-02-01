@@ -16,6 +16,7 @@ function handleGet() {
         var model = {};
         model.wsUrl = getWsUrl();
         model.avatars = getAvatars();
+        model.chatUrl = libs.portal.pageUrl({});
         return model;
     }
 

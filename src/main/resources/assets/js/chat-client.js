@@ -166,7 +166,7 @@ function bindChatMessageFormSubmit() {
 function bindChatMessageFormKeyUp() {
     var $input = $('.morse-chat__message-input');
     var $submitBtn = $('.morse-chat__message-submit');
-    $input.keyup(function() {
+    $input.keypress(function() {
         if ($input.val().length == 0) {
             $submitBtn.attr('disabled', 'disabled');
         }

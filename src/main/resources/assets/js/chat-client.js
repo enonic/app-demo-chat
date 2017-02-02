@@ -33,7 +33,7 @@ function initMorseChat() {
         wsConnect(wsUrl);
         bindChatJoinFormSubmit();
         bindChatMessageFormSubmit();
-        bindChatMessageFormKeyUp();
+        bindChatMessageFormInput();
     }
 }
 
@@ -163,10 +163,10 @@ function bindChatMessageFormSubmit() {
  * Bind key up on chat form input
  * Enables submit button if not empty
  */
-function bindChatMessageFormKeyUp() {
+function bindChatMessageFormInput() {
     var $input = $('.morse-chat__message-input');
     var $submitBtn = $('.morse-chat__message-submit');
-    $input.keypress(function() {
+    $input.on('input', function() {
         if ($input.val().length == 0) {
             $submitBtn.attr('disabled', 'disabled');
         }

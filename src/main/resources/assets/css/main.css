@@ -98,7 +98,7 @@
     justify-content: flex-start;
     align-items: stretch;
     align-content: stretch;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .morse-chat__list {

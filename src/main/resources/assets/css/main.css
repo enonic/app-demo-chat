@@ -27,10 +27,10 @@
     justify-content: flex-start;
     align-items: stretch;
     align-content: stretch;
+    background: #333;
 }
 
 .morse-chat__header {
-    background: #333;
     color: #fff;
     text-align: center;
     width: 100%;
@@ -98,7 +98,6 @@
     justify-content: flex-start;
     align-items: stretch;
     align-content: stretch;
-    background-color: #fff;
     overflow-y: scroll;
 }
 
@@ -109,7 +108,6 @@
     overflow-y:auto;
     width: 100%;
     text-align: left;
-    background-color: #fafafa;
 }
 
 .morse-chat__item {
@@ -126,7 +124,8 @@
 .morse-chat__item--intro,
 .morse-chat__item--info,
 .morse-chat__item--joined,
-.morse-chat__item--left {
+.morse-chat__item--left,
+.morse-chat__item--system {
     background: #eee;
     font-size: 14px;
 }
@@ -138,7 +137,12 @@
 
 .morse-chat__item--intro,
 .morse-chat__item--info {
-    background: rgba(55, 164, 200, 0.25);
+    background: #CBE5ED;
+}
+
+.morse-chat__item--intro,
+.morse-chat__item--system {
+    display: none;
 }
 
 .morse-chat__item-avatar {
@@ -222,10 +226,13 @@
 }
 
 .morse-chat__message-form {
-    display: none;
     background-color: #ccc;
     padding: 10px;
     width: 100%;
+}
+
+.morse-chat__message-form--disabled {
+    display: none;
 }
 
 .morse-chat__message-fieldset {
@@ -269,6 +276,15 @@
     overflow: hidden;
 }
 
-.morse-chat--joined .morse-chat__message-form {
+.morse-chat--joined .morse-chat__item--intro {
     display: block;
+}
+
+.morse-chat--joined .morse-chat__list {
+    background: #fff;
+}
+
+.morse-chat__message--nobody-here {
+    color: #000;
+    font-weight: bold;
 }

@@ -39,13 +39,16 @@
         <div class="morse-chat__list-container">
             <ol class="morse-chat__list">
                 <li class="morse-chat__item morse-chat__item--intro">
-                    <div class="morse-chat__item-message">This is the <strong>Morse chat.</strong><br/>Everything you type will be translated to Morse code.<br/>Type <strong>INFO</strong> in the chat to learn how this was made.<br/><a data-th-href="${chatUrl}" target="_blank">Nobody here? Open a new chat window to chat with yourself.</a></div>
+                    <div class="morse-chat__item-message">This is the <strong>Morse chat.</strong><br/>Type <strong>INFO</strong> in the chat to learn how this was made.<br/><a class="morse-chat__message--nobody-here" data-th-href="${chatUrl}" target="_blank">Nobody here? Open a new chat window to chat with yourself.</a></div>
+                </li>
+                <li class="morse-chat__item morse-chat__item--system">
+                    <div class="morse-chat__item-message">System</a></div>
                 </li>
             </ol>
         </div>
 
 
-        <form class="morse-chat__message-form">
+        <form class="morse-chat__message-form morse-chat__message-form--disabled">
             <div class="morse-chat__message-fieldset">
                 <input class="morse-chat__message-input" type="text" name="text" autocomplete="off"/>
                 <button class="morse-chat__message-submit" type="submit" disabled="disabled">Send</button>

@@ -2,6 +2,13 @@ var pingIntervalId;
 var avatar;
 var wsResponseHandlers = {};
 var morseChatInitiated = false;
+var wsUrl;
+var names = {
+    1: 'Morse',
+    2: 'Einstein',
+    3: 'Tesla',
+    4: 'Hopper'
+};
 
 /**
  * Initiate chat in web components mode (for Enonic.com demo)
@@ -29,7 +36,7 @@ function initMorseChat() {
     morseChatInitiated = true;
     var $chat = $('.morse-chat');
     if ($chat.length) {
-        var wsUrl = getWebSocketUrl($chat);
+        wsUrl = getWebSocketUrl($chat);
         wsConnect(wsUrl);
         bindChatJoinFormSubmit();
         bindChatMessageFormSubmit();
@@ -68,8 +75,13 @@ function wsConnect(url) {
  */
 function onWsOpen() {
     // Ping period in milliseconds
-    var pingPeriod = 60000;
+    var pingPeriod = 30000;
     pingIntervalId = setInterval(function() { sendPing() }, pingPeriod);
+
+    if (avatar) {
+        toggleMessageForm('enable')
+        showSystemMessage('Reconnected!');
+    }
 }
 
 /**
@@ -77,8 +89,10 @@ function onWsOpen() {
  */
 function onWsClose() {
     clearInterval(pingIntervalId);
+    toggleMessageForm('disable');
+    showSystemMessage('Connection lost, trying to reconnect');
     // attempt to reconnect
-    setTimeout(wsConnect, 2000);
+    setTimeout(wsConnect(wsUrl), 5000);
 }
 
 /**
@@ -144,6 +158,8 @@ function bindChatJoinFormSubmit() {
         avatar = $(this).val();
         joinChat(avatar);
         $('.morse-chat').addClass('morse-chat--joined');
+        toggleMessageForm('enable');
+        $('.morse-chat__message-input').focus();
     });
 }
 
@@ -155,6 +171,7 @@ function bindChatMessageFormSubmit() {
         e.preventDefault();
         sendChatMessage($('.morse-chat__message-input').val());
         $('.morse-chat__message-input').val('');
+        toggleSubmitButton('disable');
         return false;
     });
 }
@@ -165,15 +182,54 @@ function bindChatMessageFormSubmit() {
  */
 function bindChatMessageFormInput() {
     var $input = $('.morse-chat__message-input');
-    var $submitBtn = $('.morse-chat__message-submit');
     $input.on('input', function() {
         if ($input.val().length == 0) {
-            $submitBtn.attr('disabled', 'disabled');
+            toggleSubmitButton('disable');
         }
         else {
-            $submitBtn.removeAttr('disabled');
+            toggleSubmitButton('enable');
         }
     });
+}
+
+/**
+ * Toggle submit button
+ * @param action (enable or disable)
+ */
+function toggleSubmitButton(action) {
+    var $submitBtn = $('.morse-chat__message-submit');
+    if (action === 'enable') {
+        $submitBtn.removeAttr('disabled');
+    }
+    else {
+        $submitBtn.attr('disabled', 'disabled');
+    }
+}
+
+/**
+ * Toggle message form
+ * @param action (enable or disable)
+ */
+function toggleMessageForm(action) {
+    var $form = $('.morse-chat__message-form');
+    if (action === 'enable') {
+        $form.removeClass('morse-chat__message-form--disabled');
+    }
+    else {
+        $form.addClass('morse-chat__message-form--disabled');
+    }
+}
+
+/**
+ * Show system message (currently used for reconnect messages)
+ * @param message
+ */
+function showSystemMessage(message) {
+    var $systemMessage = $('.morse-chat__item--system');
+    $systemMessage.find('.morse-chat__item-message').text(message);
+    $('.morse-chat__list').append($systemMessage);
+    $systemMessage.show();
+    scrollToBottom();
 }
 
 /**
@@ -181,7 +237,8 @@ function bindChatMessageFormInput() {
  * @param data
  */
 wsResponseHandlers.joined = function(data) {
-    $('.morse-chat__list').append('<li class="morse-chat__item morse-chat__item--joined"><div class="morse-chat__item-avatar morse-chat__item-avatar--' + data.avatar + '"/><div class="morse-chat__item-message">' + data.sessionId + ' joined the chat</div></li>');
+    var sessionIdInt = data.sessionId.replace(/\D/g,'');
+    $('.morse-chat__list').append('<li class="morse-chat__item morse-chat__item--joined"><div class="morse-chat__item-avatar morse-chat__item-avatar--' + data.avatar + '"/><div class="morse-chat__item-message">' + names[data.avatar] + '-' + sessionIdInt + ' joined the chat</div></li>');
     scrollToBottom();
 };
 

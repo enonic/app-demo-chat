@@ -121,6 +121,10 @@
     background-color: #fafafa;
 }
 
+.morse-chat__item--message:nth-child(odd) {
+    background-color: #fff;
+}
+
 .morse-chat__item--intro,
 .morse-chat__item--info,
 .morse-chat__item--joined,

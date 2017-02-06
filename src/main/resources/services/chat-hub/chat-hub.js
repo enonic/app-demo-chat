@@ -160,8 +160,8 @@ function sendToClient(sessionId, message) {
 function sendInfoMessage(event) {
     var sessionId = getSessionId(event);
     var message = 'The Morse chat uses WebSockets to relay chat messages between the clients.<br/>';
-    message += 'The source code can be <a href="https://github.com/enonic/app-demo-chat/blob/master/src/main/resources/services/chat-hub/chat-hub.js">viewed on GitHub.</a><br/>';
-    message += 'The app is also available on <a href="https://market.enonic.com/">Enonic Market</a>.';
+    message += 'The source code can be <a href="https://github.com/enonic/app-demo-chat/blob/master/src/main/resources/services/chat-hub/chat-hub.js" target="_blank">viewed on GitHub.</a><br/>';
+    message += 'The app is also available on <a href="https://market.enonic.com/" target="_blank">Enonic Market</a>.';
     var req = {
         action: 'infoMessage',
         id: sessionId,

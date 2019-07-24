@@ -1,7 +1,7 @@
 var libs = {
     websocket: require('/lib/xp/websocket'),
     content: require('/lib/xp/content'),
-    morse: require('/lib/enonic/morse-translator')
+    morse: require('/lib/morse-translator')
 };
 
 var chatGroup = 'chat';

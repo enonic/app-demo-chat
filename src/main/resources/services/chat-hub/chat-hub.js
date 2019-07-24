@@ -1,6 +1,5 @@
 var libs = {
     websocket: require('/lib/xp/websocket'),
-    content: require('/lib/xp/content'),
     morse: require('/lib/morse-translator')
 };
 

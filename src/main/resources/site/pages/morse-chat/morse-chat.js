@@ -1,6 +1,6 @@
 var libs = {
     portal : require('/lib/xp/portal'),
-    thymeleaf : require('/lib/xp/thymeleaf')
+    thymeleaf: require('/lib/thymeleaf')
 };
 
 // Handle GET request
@@ -8,7 +8,6 @@ exports.get = handleGet;
 
 function handleGet() {
 
-    var content = libs.portal.getContent(); // Current content
     var view = resolve('morse-chat.html'); // The view to render
     var model = createModel(); // The model to send to the view
 

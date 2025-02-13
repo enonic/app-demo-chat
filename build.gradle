@@ -12,6 +12,11 @@ app {
     systemVersion = "${xpVersion}"
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
 dependencies {
     include "com.enonic.xp:lib-portal:${xpVersion}"
     include "com.enonic.xp:lib-websocket:${xpVersion}"
@@ -20,7 +25,6 @@ dependencies {
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
     xp.enonicRepo()
 }

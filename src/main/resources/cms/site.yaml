@@ -1,0 +1,6 @@
+kind: "Site"
+mappings:
+  - controller: "/cms/pages/morse-chat/morse-chat.js"
+    order: 10
+    pattern: ".*\\/morse-chat"
+    invertPattern: false

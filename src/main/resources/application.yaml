@@ -1,0 +1,5 @@
+kind: "Application"
+title: "Morse Chat"
+description: "A demo chat app with morse translation"
+vendorName: "Enonic AS"
+vendorUrl: "https://enonic.com"

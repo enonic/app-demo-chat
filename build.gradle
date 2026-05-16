@@ -8,7 +8,6 @@ dependencies {
     include xplibs.portal
     include xplibs.websocket
     include libs.lib.thymeleaf
-    include libs.lib.util
 }
 
 repositories {
